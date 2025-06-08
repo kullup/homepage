@@ -1,42 +1,38 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import Window from './components/Window.vue';
+import TaskBar from './components/TaskBar.vue';
 </script>
 
 <template>
   <header>
-hi
   </header>
   <main>
-    hi
+    <Window />
   </main>
+  <footer>
+    <TaskBar />
+  </footer>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-}
+<style >
+  body {
+    zoom: 1.5;
+    background-color: rgb(54, 123, 123);
+    margin: 0;
+    padding: 0;
+  }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
+  main {
+    height: 60vh;
     display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
-  .logo {
-    margin: 0 2rem 0 0;
+  footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
   }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
 </style>
