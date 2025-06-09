@@ -52,7 +52,14 @@
 
     .wordart {
         width: 100%;
+        max-width: 400px;
         height: auto;
         margin-top: 20px;
+    }
+
+    p {
+        padding: 0 10px 0 10px;
+        font-size: 12px;
+        line-height: 1.2;
     }
 </style>
