@@ -41,13 +41,23 @@
 </template>
 
 <style scoped>
-    .window-body {
-        margin: 2px 0 0 0;
+
+    .window {
+        width: full;
+        height: 300px;
+        display: flex;
+        flex-direction: column;
     }
 
     .sunken-panel {
-        width: 60vw;
-        height: 55vh;
+        height: 100%;
+        overflow-y: auto;
+    }
+
+    .window-body {
+        margin: 2px 0 0 0;
+        flex: 1;
+        min-height: 0;
     }
 
     .wordart {

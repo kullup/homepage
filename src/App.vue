@@ -4,35 +4,29 @@ import TaskBar from './components/TaskBar.vue';
 </script>
 
 <template>
-  <header>
-  </header>
   <main>
-    <Window />
-  </main>
-  <footer>
+    <div class="desktop">
+      <Window />
+    </div>
     <TaskBar />
-  </footer>
+  </main>
 </template>
 
 <style >
-  body {
-    zoom: 1.5;
+  .desktop {
     background-color: rgb(54, 123, 123);
-    margin: 0;
-    padding: 0;
+    flex: 1;
   }
 
   main {
-    height: 62vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    height: 100vh;
+    width: 100vw;
   }
 
-  footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+  body {
+    margin: 0;
+    padding: 0;
   }
 </style>
