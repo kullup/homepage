@@ -36,10 +36,17 @@
         align-items: center;
         gap: 5px;
     }
+    .programm-list button {
+        display: flex;
+        align-items: center;
+    }
     .button-icon {
-        width: 13px;
-        height: 13px;
-        margin-right: 5px;
-        vertical-align: middle;
+        width: 15px;
+        height: 15px;
+        margin-right: 8px;
+    }
+    button {
+        min-width: 0px;
+        padding-inline-start: 4ch;
     }
 </style>
