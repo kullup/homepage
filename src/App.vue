@@ -23,7 +23,7 @@ import TaskBar from './components/TaskBar.vue';
   }
 
   main {
-    height: 60vh;
+    height: 62vh;
     display: flex;
     flex-direction: column;
     align-items: center;
