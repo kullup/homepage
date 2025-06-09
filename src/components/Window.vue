@@ -10,7 +10,7 @@
         </div>
         <div class="window-body">
             <div class="sunken-panel">
-                <h4>Welcome</h4>
+                <img src="../assets/wordart.png" alt="World Icon" class="wordart">
                 <p>
                     This is a simple window component. You can add more content here, such as text, images, or other components.
                     You can also customize the styles to fit your design needs.
@@ -48,5 +48,11 @@
     .sunken-panel {
         width: 60vw;
         height: 55vh;
+    }
+
+    .wordart {
+        width: 100%;
+        height: auto;
+        margin-top: 20px;
     }
 </style>
