@@ -47,6 +47,6 @@
     }
     button {
         min-width: 0px;
-        padding-inline-start: 4ch;
+        padding-inline-start: 4px;
     }
 </style>
