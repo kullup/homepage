@@ -19,6 +19,9 @@
 </template>
 
 <style scoped>
+    .window{
+        width: full;
+    }
     .window-body {
         margin: 2px;
         display: flex;

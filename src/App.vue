@@ -13,16 +13,21 @@ import TaskBar from './components/TaskBar.vue';
 </template>
 
 <style >
+  body {
+    zoom: 1.5;
+    overflow: hidden;
+  }
+
   .desktop {
     background-color: rgb(54, 123, 123);
-    flex: 1;
+    height: 100%;
   }
 
   main {
     display: flex;
     flex-direction: column;
-    height: 100vh;
-    width: 100vw;
+    height: 66.66666vh;
+    width: 66.66666vw;
   }
 
   body {
