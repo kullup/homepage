@@ -5,6 +5,7 @@ const windowRef = ref(null)
 const isDragging = ref(false)
 const dragStart = ref({ x: 0, y: 0 })
 const windowPosition = ref({ x: 50, y: 50 })
+let animationFrameId = null
 
 const startDrag = (event) => {
   isDragging.value = true
@@ -18,24 +19,47 @@ const startDrag = (event) => {
     y: clientY - windowPosition.value.y
   }
   event.preventDefault()
+  
+  // Add visual feedback for dragging
+  if (windowRef.value) {
+    windowRef.value.style.willChange = 'transform'
+  }
 }
 
 const drag = (event) => {
   if (!isDragging.value) return
   
-  // Account for the zoom factor (1.5 from App.vue)
-  const zoomFactor = 1.5
-  const clientX = event.clientX / zoomFactor
-  const clientY = event.clientY / zoomFactor
-  
-  windowPosition.value = {
-    x: clientX - dragStart.value.x,
-    y: clientY - dragStart.value.y
+  // Cancel previous animation frame if it exists
+  if (animationFrameId) {
+    cancelAnimationFrame(animationFrameId)
   }
+  
+  // Use requestAnimationFrame for smooth updates
+  animationFrameId = requestAnimationFrame(() => {
+    // Account for the zoom factor (1.5 from App.vue)
+    const zoomFactor = 1.5
+    const clientX = event.clientX / zoomFactor
+    const clientY = event.clientY / zoomFactor
+    
+    windowPosition.value = {
+      x: clientX - dragStart.value.x,
+      y: clientY - dragStart.value.y
+    }
+  })
 }
 
 const stopDrag = () => {
   isDragging.value = false
+  
+  // Clean up animation frame and will-change hint
+  if (animationFrameId) {
+    cancelAnimationFrame(animationFrameId)
+    animationFrameId = null
+  }
+  
+  if (windowRef.value) {
+    windowRef.value.style.willChange = 'auto'
+  }
 }
 
 onMounted(() => {
@@ -54,7 +78,7 @@ onUnmounted(() => {
         ref="windowRef"
         class="window" 
         :style="{ 
-            transform: `translate(${windowPosition.x}px, ${windowPosition.y}px)`,
+            transform: `translate3d(${windowPosition.x}px, ${windowPosition.y}px, 0)`,
             position: 'absolute'
         }"
     >
