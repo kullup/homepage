@@ -21,6 +21,7 @@
 <style scoped>
     .window{
         width: full;
+        z-index: 10;
     }
     .window-body {
         margin: 2px;

@@ -1,6 +1,64 @@
+<script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
+
+const windowRef = ref(null)
+const isDragging = ref(false)
+const dragStart = ref({ x: 0, y: 0 })
+const windowPosition = ref({ x: 50, y: 50 })
+
+const startDrag = (event) => {
+  isDragging.value = true
+  // Account for the zoom factor (1.5 from App.vue)
+  const zoomFactor = 1.5
+  const clientX = event.clientX / zoomFactor
+  const clientY = event.clientY / zoomFactor
+  
+  dragStart.value = {
+    x: clientX - windowPosition.value.x,
+    y: clientY - windowPosition.value.y
+  }
+  event.preventDefault()
+}
+
+const drag = (event) => {
+  if (!isDragging.value) return
+  
+  // Account for the zoom factor (1.5 from App.vue)
+  const zoomFactor = 1.5
+  const clientX = event.clientX / zoomFactor
+  const clientY = event.clientY / zoomFactor
+  
+  windowPosition.value = {
+    x: clientX - dragStart.value.x,
+    y: clientY - dragStart.value.y
+  }
+}
+
+const stopDrag = () => {
+  isDragging.value = false
+}
+
+onMounted(() => {
+  document.addEventListener('mousemove', drag)
+  document.addEventListener('mouseup', stopDrag)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('mousemove', drag)
+  document.removeEventListener('mouseup', stopDrag)
+})
+</script>
+
 <template>
-    <div class="window">
-        <div class="title-bar">
+    <div 
+        ref="windowRef"
+        class="window" 
+        :style="{ 
+            transform: `translate(${windowPosition.x}px, ${windowPosition.y}px)`,
+            position: 'absolute'
+        }"
+    >
+        <div class="title-bar" @mousedown="startDrag">
             <div class="title-bar-text">A Window</div>
             <div class="title-bar-controls">
             <button aria-label="Minimize"></button>
@@ -38,11 +96,18 @@
 
 <style scoped>
     .window {
-        width: full;
-        height: 100%;
+        width: 200px; /* fullscreen: width: full */
+        height: 300px; /* fullscreen: height: 100% */
         display: flex;
         flex-direction: column;
         overflow: hidden;
+        position: absolute;
+        z-index: 1;
+    }
+
+    .title-bar {
+        cursor: move;
+        user-select: none;
     }
 
     .window-body {

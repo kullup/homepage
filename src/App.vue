@@ -22,7 +22,6 @@ import TaskBar from './components/TaskBar.vue';
   }
 
   main {
-    overflow: hidden;
     height: 66.66666vh;
     width: 66.66666vw;
     background-color: rgb(231, 231, 231);
@@ -32,6 +31,7 @@ import TaskBar from './components/TaskBar.vue';
   }
 
   body {
+    overflow: hidden;
     margin: 0;
     padding: 0;
   }
