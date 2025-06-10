@@ -28,7 +28,7 @@ import TaskBar from './components/TaskBar.vue';
     background-color: rgb(231, 231, 231);
     display: flex;
     flex-direction: column;
-    zoom: 1.3;
+    zoom: 1.5;
   }
 
   body {

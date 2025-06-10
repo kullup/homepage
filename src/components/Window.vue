@@ -39,12 +39,10 @@
     .window-body {
         margin: 2px 0 0 0;
         height: 100%;
-        overflow: hidden;
         background-color: rgb(255, 255, 255);
     }
 
     .sunken-panel {
-        overflow-y: auto;
         margin: 2px 0 0 0;
         height: 100%;
     }
