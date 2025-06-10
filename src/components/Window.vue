@@ -8,11 +8,20 @@
             <button aria-label="Close"></button>
             </div>
         </div>
+        <div class="field-row">
+            <label for="text17">Address</label>
+            <input id="text17" type="text" value="https://jon300.cool" />
+        </div>
         <div class="sunken-panel">
-            The quick brown fox jumps over the lazy dog. This is a classic pangram used to test fonts and keyboards.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            <img src="../assets/wordart.png" alt="Word Art" class="wordart">
+            <p>
+                The quick brown fox jumps over the lazy dog. This is a classic pangram used to test fonts and keyboards.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+            <img src="../assets/php.png" alt="Word Art" class="img php">
+            <p>
+                PHP is a popular general-purpose scripting language that is especially suited to web development. Fast, flexible and pragmatic, PHP powers everything from your blog to the most popular websites in the world.
+            </p>
+            <img src="../assets/wordart.png" alt="Word Art" class="img">
             <p>
                 This is a simple text paragraph to demonstrate the layout of the window. It contains multiple lines of text to show how the content flows within the window.
                 You can add more text here to see how it behaves with different lengths and styles.
@@ -45,18 +54,41 @@
     .sunken-panel {
         margin: 2px 0 0 0;
         height: 100%;
+        background-color: rgb(219, 240, 239);
     }
 
-    .wordart {
+    .field-row {
+        margin: 2px 0px 0px 2px;
+    }
+
+    input {
         width: 100%;
-        max-width: 400px;
-        height: auto;
-        margin-top: 20px;
     }
 
     p {
         padding: 0 10px 0 10px;
         font-size: 12px;
         line-height: 1.2;
+    }
+
+    .img {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+    }
+
+    .php {
+        width: 100px;
+        padding: 10px 0 10px 0;
+        animation: rotate 15s linear infinite;
+    }
+
+    @keyframes rotate {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
     }
 </style>
