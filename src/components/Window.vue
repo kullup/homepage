@@ -9,55 +9,28 @@
             </div>
         </div>
         <div class="window-body">
-            <div class="sunken-panel">
-                <img src="../assets/wordart.png" alt="World Icon" class="wordart">
-                <p>
-                    This is a simple window component. You can add more content here, such as text, images, or other components.
-                    You can also customize the styles to fit your design needs.
-                    The title bar contains controls for minimizing, maximizing, and closing the window.
-                    The window body can contain any content you like, such as forms, buttons, or lists.
-                    You can also add more functionality, such as drag-and-drop or resizing.
-                    This is a simple example of a window component in Vue.js.
-                    You can use this as a starting point for building more complex applications.
-                    Feel free to modify the styles and content to suit your needs.
-
-                    You can also add more components to the window body, such as buttons, forms, or lists.
-                    This is a simple example of a window component in Vue.js.
-                    You can use this as a starting point for building more complex applications.
-                    You can also add more functionality, such as drag-and-drop or resizing.
-                    This is a simple example of a window component in Vue.js.
-                    You can use this as a starting point for building more complex applications.
-                    You can also add more functionality, such as drag-and-drop or resizing.
-                    This is a simple example of a window component in Vue.js.
-                    You can use this as a starting point for building more complex applications.
-                    You can also add more functionality, such as drag-and-drop or resizing.
-                    This is a simple example of a window component in Vue.js.
-                    You can use this as a starting point for building more complex applications.
-                    You can also add more functionality, such as drag-and-drop or resizing.
-                </p>
-            </div>
+            hu
         </div>
     </div>
 </template>
 
 <style scoped>
-
     .window {
         width: full;
-        height: 300px;
+        height: 100%;
         display: flex;
         flex-direction: column;
     }
 
-    .sunken-panel {
-        height: 100%;
-        overflow-y: auto;
-    }
-
     .window-body {
         margin: 2px 0 0 0;
-        flex: 1;
-        min-height: 0;
+        height: 100%;
+        background-color: rgb(255, 255, 255);
+    }
+
+    .sunken-panel {
+        overflow-y: auto;
+        max-height: calc(66.6666vh - 61px);
     }
 
     .wordart {
