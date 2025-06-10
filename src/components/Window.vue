@@ -4,10 +4,15 @@ import { ref, onMounted, onUnmounted } from 'vue'
 const windowRef = ref(null)
 const isDragging = ref(false)
 const dragStart = ref({ x: 0, y: 0 })
-const windowPosition = ref({ x: 50, y: 50 })
+const windowPosition = ref({ x: 0, y: 0 })
+const isMaximized = ref(true) // Start maximized
+const originalPosition = ref({ x: 0, y: 0 })
 let animationFrameId = null
 
 const startDrag = (event) => {
+  // Don't allow dragging when maximized
+  if (isMaximized.value) return
+  
   isDragging.value = true
   // Account for the zoom factor (1.5 from App.vue)
   const zoomFactor = 1.5
@@ -62,6 +67,19 @@ const stopDrag = () => {
   }
 }
 
+const toggleMaximize = () => {
+  if (isMaximized.value) {
+    // Restore window
+    isMaximized.value = false
+    windowPosition.value = { ...originalPosition.value }
+  } else {
+    // Save current position and maximize
+    originalPosition.value = { ...windowPosition.value }
+    isMaximized.value = true
+    windowPosition.value = { x: 0, y: 0 }
+  }
+}
+
 onMounted(() => {
   document.addEventListener('mousemove', drag)
   document.addEventListener('mouseup', stopDrag)
@@ -77,24 +95,25 @@ onUnmounted(() => {
     <div 
         ref="windowRef"
         class="window" 
+        :class="{ maximized: isMaximized }"
         :style="{ 
-            transform: `translate3d(${windowPosition.x}px, ${windowPosition.y}px, 0)`,
-            position: 'absolute'
+            transform: `translate3d(${windowPosition.x}px, ${windowPosition.y}px, 0)`
         }"
     >
         <div class="title-bar" @mousedown="startDrag">
             <div class="title-bar-text">A Window</div>
             <div class="title-bar-controls">
             <button aria-label="Minimize"></button>
-            <button aria-label="Maximize"></button>
+            <button aria-label="Maximize" @click="toggleMaximize"></button>
             <button aria-label="Close"></button>
             </div>
         </div>
         <div class="field-row">
             <label for="text17">Address</label>
-            <input id="text17" type="text" value="https://jon300.cool" />
+            <input id="text17" type="text" value="https://jon3000.cool/hi" />
         </div>
         <div class="sunken-panel">
+            <img src="../assets/wordart.png" alt="Word Art" class="img">
             <p>
                 The quick brown fox jumps over the lazy dog. This is a classic pangram used to test fonts and keyboards.
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -103,7 +122,6 @@ onUnmounted(() => {
             <p>
                 PHP is a popular general-purpose scripting language that is especially suited to web development. Fast, flexible and pragmatic, PHP powers everything from your blog to the most popular websites in the world.
             </p>
-            <img src="../assets/wordart.png" alt="Word Art" class="img">
             <p>
                 This is a simple text paragraph to demonstrate the layout of the window. It contains multiple lines of text to show how the content flows within the window.
                 You can add more text here to see how it behaves with different lengths and styles.
@@ -120,8 +138,8 @@ onUnmounted(() => {
 
 <style scoped>
     .window {
-        width: 200px; /* fullscreen: width: full */
-        height: 300px; /* fullscreen: height: 100% */
+        width: 80%;
+        height: 80%;
         display: flex;
         flex-direction: column;
         overflow: hidden;
@@ -129,9 +147,20 @@ onUnmounted(() => {
         z-index: 1;
     }
 
+    .window.maximized {
+        width: 100%;
+        height: 100%;
+        transform: translate3d(0, 0, 0) !important;
+        position: static;
+    }
+
     .title-bar {
         cursor: move;
         user-select: none;
+    }
+
+    .window.maximized .title-bar {
+        cursor: default;
     }
 
     .window-body {
