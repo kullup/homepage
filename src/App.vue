@@ -16,6 +16,7 @@ import TaskBar from './components/TaskBar.vue';
   .desktop {
     background-color: rgb(54, 123, 123);
     height: 100%;
+    max-height: 92.6%;
     display: flex;
     flex-direction: column;
   }
