@@ -27,10 +27,14 @@ import TaskBar from './components/TaskBar.vue';
   main {
     height: 66.66666dvh;
     width: 66.66666dvw;
-    background-color: rgb(231, 231, 231);
+    background-color: rgb(54, 123, 123);
     display: flex;
     flex-direction: column;
-    zoom: 1.5;
+    scale: 1.5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: top left;
   }
 
   body {
