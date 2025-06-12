@@ -1,50 +1,5 @@
-main {
-    height: 66.66666dvh;
-    width: 66.66666dvw;
-    background-color: rgb(54, 123, 123);
-    display: flex;
-    flex-direction: column;
-    scale: 1.5;
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform-origin: top left;
-    filter: brightness(1.03) contrast(1.05);
-}
-
 body {
     overflow: hidden;
     margin: 0;
     padding: 0;
-}
-
-/* Vignette effect for old monitor simulation */
-main::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.15)90%, rgba(0, 0, 0, 0.4) 100%);
-    pointer-events: none;
-    z-index: 9998;
-}
-
-/* CRT overlay covering the main element */
-main::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('./crt-overlay.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    pointer-events: none;
-    z-index: 9999;
-    mix-blend-mode: overlay;
-    opacity: 0.2;
 }
