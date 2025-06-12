@@ -50,7 +50,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('./crt-overlay.png');
+    background-image: url('../assets/crt-overlay.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
