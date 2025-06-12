@@ -63,13 +63,15 @@
 }
 
 .screen-inner-border {
-    border: 2px solid rgb(0, 0, 0);
+    border-width: 0.2em 0.2em 0.2em 0.2em;
+    border-style: solid;
+    border-color: rgb(0, 0, 0);
+    background-color: rgb(0, 0, 0);
     border-radius: 5px;
     width: 100%;
     height: 100%;
     box-sizing: border-box;
     position: relative;
-    overflow: hidden;
 }
 
 .monitor {
@@ -92,15 +94,12 @@
 .screen {
     height: 100%;
     width: 100%;
-    background-color: rgb(157, 156, 133);
+    background-color: rgb(0, 0, 0);
     display: flex;
     flex-direction: column;
-    scale: 1.0;
     position: absolute;
-    top: 0;
-    left: 0;
-    transform-origin: top left;
-    filter: brightness(0.93) contrast(1.3) saturate(0.9) hue-rotate(10deg);
+    overflow: hidden;
+    filter: brightness(0.93) contrast(1.3) saturate(1) hue-rotate(10deg);
 }
 
 /* Vignette effect for old monitor simulation */
