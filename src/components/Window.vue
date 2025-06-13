@@ -93,6 +93,8 @@ const toggleMaximize = () => {
     originalPosition.value = { ...windowPosition.value }
     isMaximized.value = true
     windowPosition.value = { x: 0, y: 0 }
+    // Bring window to front when maximizing
+    bringToFront()
   }
 }
 
@@ -147,7 +149,6 @@ onUnmounted(() => {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 10 !important;
 }
 
 .title-bar {
