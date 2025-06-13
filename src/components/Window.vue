@@ -140,6 +140,7 @@ onUnmounted(() => {
   overflow: hidden;
   position: absolute;
   z-index: 1;
+  box-sizing: border-box;
 }
 
 .window.maximized {

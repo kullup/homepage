@@ -7,11 +7,11 @@
 <style >
   .desktop {
     background-color: rgb(54, 123, 123);
-    height: 100%;
+    height: 180%;
     width: 100%;
-    max-height: calc(100% - 33px);
-    max-width: calc(100% - 6px);
-    padding-right: 6px;
+    max-height: 100%;
+    max-width: 100%;
     position: relative;
+    overflow: hidden;
   }
 </style>
