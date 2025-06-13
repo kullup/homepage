@@ -12,7 +12,6 @@
     max-height: calc(100% - 33px);
     max-width: calc(100% - 6px);
     padding-right: 6px;
-    display: flex;
-    flex-direction: column;
+    position: relative;
   }
 </style>

@@ -112,7 +112,7 @@
     height: 100%;
     background: radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.15)85%, rgba(0, 0, 0, 0.4) 100%);
     pointer-events: none;
-    z-index: 99;
+    z-index: 99999;
 }
 
 /* CRT overlay covering the main element */
@@ -128,7 +128,7 @@
     background-repeat: no-repeat;
     background-position: center;
     pointer-events: none;
-    z-index: 100;
+    z-index: 100000;
     mix-blend-mode: overlay;
     opacity: 0.5;
 }

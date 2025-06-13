@@ -11,10 +11,13 @@ import Monitor from './components/Monitor.vue';
   <main>
     <Monitor>
       <Desktop>
-        <Window>
+        <Window title="Browser" :initial-x="0" :initial-y="0" :initial-z-index="2">
           <Browser>
             <Homepage />
           </Browser>
+        </Window>
+        <Window title="Empty Window" :initial-x="50" :initial-y="50" :initial-z-index="1">
+          
         </Window>
       </Desktop>
       <TaskBar />

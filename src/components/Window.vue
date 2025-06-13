@@ -1,17 +1,28 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 
+const props = defineProps({
+  initialX: { type: Number, default: 0 },
+  initialY: { type: Number, default: 0 },
+  initialZIndex: { type: Number, default: 1 },
+  title: { type: String, default: 'A Window' }
+})
+
 const windowRef = ref(null)
 const isDragging = ref(false)
 const dragStart = ref({ x: 0, y: 0 })
-const windowPosition = ref({ x: 0, y: 0 })
+const windowPosition = ref({ x: props.initialX, y: props.initialY })
 const isMaximized = ref(true) // Start maximized
-const originalPosition = ref({ x: 0, y: 0 })
+const originalPosition = ref({ x: props.initialX, y: props.initialY })
+const zIndex = ref(props.initialZIndex)
 let animationFrameId = null
 
 const startDrag = (event) => {
   // Don't allow dragging when maximized
   if (isMaximized.value) return
+
+  // Bring window to front when starting to drag
+  bringToFront()
 
   isDragging.value = true
   // Account for the zoom factor (1.5 from App.vue)
@@ -29,6 +40,11 @@ const startDrag = (event) => {
   if (windowRef.value) {
     windowRef.value.style.willChange = 'transform'
   }
+}
+
+const bringToFront = () => {
+  // Simple z-index increment for bringing to front
+  zIndex.value = Date.now() % 100000
 }
 
 const drag = (event) => {
@@ -80,6 +96,10 @@ const toggleMaximize = () => {
   }
 }
 
+const handleWindowClick = () => {
+  bringToFront()
+}
+
 onMounted(() => {
   document.addEventListener('mousemove', drag)
   document.addEventListener('mouseup', stopDrag)
@@ -93,10 +113,11 @@ onUnmounted(() => {
 
 <template>
   <div ref="windowRef" class="window" :class="{ maximized: isMaximized }" :style="{
-    transform: `translate3d(${windowPosition.x}px, ${windowPosition.y}px, 0)`
-  }">
+    transform: `translate3d(${windowPosition.x}px, ${windowPosition.y}px, 0)`,
+    zIndex: zIndex
+  }" @mousedown="handleWindowClick">
     <div class="title-bar" @mousedown="startDrag">
-      <div class="title-bar-text">A Window</div>
+      <div class="title-bar-text">{{ title }}</div>
       <div class="title-bar-controls">
         <button aria-label="Minimize"></button>
         <button aria-label="Maximize" @click="toggleMaximize"></button>
@@ -123,7 +144,10 @@ onUnmounted(() => {
   width: 100%;
   height: 100%;
   transform: translate3d(0, 0, 0) !important;
-  position: static;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10 !important;
 }
 
 .title-bar {
