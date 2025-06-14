@@ -10,11 +10,30 @@
         <div class="monitor-controls">
             <div class="green led"></div>
             <div class="orange led"></div>
+            <button class="power-button"></button>
         </div>
     </div>
 </template>
 
 <style scoped>
+.power-button {
+    width: 20px;
+    height: 20px;
+    min-width: 0px;
+    min-height: 0px;
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.533);
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.86);
+    padding: 0;
+}
+
+.power-button:active {
+    /* */
+}
+
 .led {
     width: 6px;
     height: 6px;
@@ -42,7 +61,7 @@
     font-size: 14px;
     z-index: 101; /* Ensure controls are above the screen */
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     gap: 12px;
 }
@@ -79,7 +98,10 @@
     width: 66.66666dvw;
     border-style: solid;
     border-color: rgb(249, 250, 232);
-    border-width: 16px 16px 0px 16px;
+    border-width: 8px 40px 0px 40px;
+    @media (max-width: 1024px) {
+        border-width: 12px 8px 0px 8px;
+    }
     background-color: rgb(249, 250, 232);
     position: relative;
     scale: 1.5;
@@ -130,6 +152,6 @@
     pointer-events: none;
     z-index: 100000;
     mix-blend-mode: overlay;
-    opacity: 0.5;
+    opacity: 0.3;
 }
 </style>
