@@ -1,14 +1,31 @@
+<script setup>
+const props = defineProps({
+    windows: { type: Array, required: true },
+    activeWindow: { type: String, required: true }
+});
+
+const emit = defineEmits(['select-window']);
+
+const getIcon = (title) => {
+    switch (title) {
+        case 'Browser':
+            return '../assets/world.png';
+        case 'Contact':
+            return '../assets/mail.png';
+        default:
+            return '';
+    }
+};
+</script>
+
 <template>
     <div class="window">
         <div class="window-body">
             <div class="programm-list">
-                <button class="active">
-                    <img src="../assets/world.png" alt="About" class="button-icon">
-                    About
-                </button>
-                <button>
-                    <img src="../assets/mail.png" alt="Contact" class="button-icon">
-                    Contact
+                <button v-for="window in windows" :key="window.id" :class="{ active: window.id === activeWindow }"
+                    @click="emit('select-window', window.id)">
+                    <img :src="getIcon(window.title)" :alt="window.title" class="button-icon">
+                    {{ window.title }}
                 </button>
             </div>
             <div class="status-bar ">

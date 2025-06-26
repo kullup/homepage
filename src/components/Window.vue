@@ -4,9 +4,11 @@ import { ref, onMounted, onUnmounted } from 'vue'
 const props = defineProps({
   initialX: { type: Number, default: 0 },
   initialY: { type: Number, default: 0 },
-  initialZIndex: { type: Number, default: 1 },
+  zIndex: { type: Number, default: 1 },
   title: { type: String, default: 'A Window' }
 })
+
+const emit = defineEmits(['focus'])
 
 const windowRef = ref(null)
 const isDragging = ref(false)
@@ -14,15 +16,13 @@ const dragStart = ref({ x: 0, y: 0 })
 const windowPosition = ref({ x: props.initialX, y: props.initialY })
 const isMaximized = ref(true) // Start maximized
 const originalPosition = ref({ x: props.initialX, y: props.initialY })
-const zIndex = ref(props.initialZIndex)
 let animationFrameId = null
 
 const startDrag = (event) => {
   // Don't allow dragging when maximized
   if (isMaximized.value) return
 
-  // Bring window to front when starting to drag
-  bringToFront()
+  emit('focus')
 
   isDragging.value = true
   // Account for the zoom factor (1.5 from App.vue)
@@ -40,11 +40,6 @@ const startDrag = (event) => {
   if (windowRef.value) {
     windowRef.value.style.willChange = 'transform'
   }
-}
-
-const bringToFront = () => {
-  // Simple z-index increment for bringing to front
-  zIndex.value = Date.now() % 100000
 }
 
 const drag = (event) => {
@@ -93,13 +88,8 @@ const toggleMaximize = () => {
     originalPosition.value = { ...windowPosition.value }
     isMaximized.value = true
     windowPosition.value = { x: 0, y: 0 }
-    // Bring window to front when maximizing
-    bringToFront()
+    emit('focus')
   }
-}
-
-const handleWindowClick = () => {
-  bringToFront()
 }
 
 onMounted(() => {
@@ -116,9 +106,9 @@ onUnmounted(() => {
 <template>
   <div ref="windowRef" class="window" :class="{ maximized: isMaximized }" :style="{
     transform: `translate3d(${windowPosition.x}px, ${windowPosition.y}px, 0)`,
-    zIndex: zIndex
-  }" @mousedown="handleWindowClick">
-    <div class="title-bar" @mousedown="startDrag">
+    zIndex: props.zIndex
+  }" @mousedown.left="$emit('focus')">
+    <div class="title-bar" @mousedown.left.stop="startDrag">
       <div class="title-bar-text">{{ title }}</div>
       <div class="title-bar-controls">
         <button aria-label="Minimize"></button>
