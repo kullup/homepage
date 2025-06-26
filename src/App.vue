@@ -28,6 +28,10 @@ const toggleMinimize = (id) => {
   const window = windows.value.find(w => w.id === id);
   if (window) {
     window.isMinimized = !window.isMinimized;
+    if (window.isMinimized && activeWindow.value === id) {
+      const nextActiveWindow = windows.value.filter(w => !w.isMinimized).sort((a, b) => b.zIndex - a.zIndex)[0];
+      activeWindow.value = nextActiveWindow ? nextActiveWindow.id : '';
+    }
   }
 };
 </script>

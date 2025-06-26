@@ -4,7 +4,7 @@ import mailIcon from '../assets/mail.png';
 
 const props = defineProps({
     windows: { type: Array, required: true },
-    activeWindow: { type: String, required: true }
+    activeWindow: { type: String, required: false }
 });
 
 const emit = defineEmits(['select-window']);
