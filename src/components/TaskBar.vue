@@ -1,4 +1,7 @@
 <script setup>
+import worldIcon from '../assets/world.png';
+import mailIcon from '../assets/mail.png';
+
 const props = defineProps({
     windows: { type: Array, required: true },
     activeWindow: { type: String, required: true }
@@ -9,9 +12,9 @@ const emit = defineEmits(['select-window']);
 const getIcon = (title) => {
     switch (title) {
         case 'Browser':
-            return '../assets/world.png';
+            return worldIcon;
         case 'Contact':
-            return '../assets/mail.png';
+            return mailIcon;
         default:
             return '';
     }
