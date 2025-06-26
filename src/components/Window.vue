@@ -5,10 +5,11 @@ const props = defineProps({
   initialX: { type: Number, default: 0 },
   initialY: { type: Number, default: 0 },
   zIndex: { type: Number, default: 1 },
-  title: { type: String, default: 'A Window' }
+  title: { type: String, default: 'A Window' },
+  isMinimized: { type: Boolean, default: false }
 })
 
-const emit = defineEmits(['focus'])
+const emit = defineEmits(['focus', 'minimize'])
 
 const windowRef = ref(null)
 const isDragging = ref(false)
@@ -92,6 +93,10 @@ const toggleMaximize = () => {
   }
 }
 
+const minimize = () => {
+  emit('minimize')
+}
+
 onMounted(() => {
   document.addEventListener('mousemove', drag)
   document.addEventListener('mouseup', stopDrag)
@@ -104,14 +109,14 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div ref="windowRef" class="window" :class="{ maximized: isMaximized }" :style="{
+  <div v-if="!isMinimized" ref="windowRef" class="window" :class="{ maximized: isMaximized }" :style="{
     transform: `translate3d(${windowPosition.x}px, ${windowPosition.y}px, 0)`,
     zIndex: props.zIndex
   }" @mousedown.left="$emit('focus')">
     <div class="title-bar" @mousedown.left.stop="startDrag">
       <div class="title-bar-text">{{ title }}</div>
       <div class="title-bar-controls">
-        <button aria-label="Minimize"></button>
+        <button aria-label="Minimize" @click="minimize"></button>
         <button aria-label="Maximize" @click="toggleMaximize"></button>
         <button aria-label="Close"></button>
       </div>

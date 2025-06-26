@@ -8,8 +8,8 @@ import Homepage from './components/Homepage.vue';
 import Monitor from './components/Monitor.vue';
 
 const windows = ref([
-  { id: 'browser', title: 'Browser', zIndex: 2, initialX: 0, initialY: 0 },
-  { id: 'contact', title: 'Contact', zIndex: 1, initialX: 50, initialY: 50 }
+  { id: 'browser', title: 'Browser', zIndex: 2, initialX: 0, initialY: 0, isMinimized: false },
+  { id: 'contact', title: 'Contact', zIndex: 1, initialX: 50, initialY: 50, isMinimized: false }
 ]);
 
 const activeWindow = ref('browser');
@@ -20,6 +20,14 @@ const bringToFront = (id) => {
   const window = windows.value.find(w => w.id === id);
   if (window) {
     window.zIndex = maxZIndex + 1;
+    window.isMinimized = false;
+  }
+};
+
+const toggleMinimize = (id) => {
+  const window = windows.value.find(w => w.id === id);
+  if (window) {
+    window.isMinimized = !window.isMinimized;
   }
 };
 </script>
@@ -29,13 +37,15 @@ const bringToFront = (id) => {
     <Monitor>
       <Desktop>
         <Window
-          v-for="window in windows"
+          v-for="window in windows.filter(w => !w.isMinimized)"
           :key="window.id"
           :title="window.title"
           :initial-x="window.initialX"
           :initial-y="window.initialY"
           :z-index="window.zIndex"
+          :is-minimized="window.isMinimized"
           @focus="bringToFront(window.id)"
+          @minimize="toggleMinimize(window.id)"
         >
           <Browser v-if="window.id === 'browser'">
             <Homepage />

@@ -19,6 +19,10 @@ const getIcon = (title) => {
             return '';
     }
 };
+
+const selectWindow = (id) => {
+  emit('select-window', id)
+}
 </script>
 
 <template>
@@ -26,7 +30,7 @@ const getIcon = (title) => {
         <div class="window-body">
             <div class="programm-list">
                 <button v-for="window in windows" :key="window.id" :class="{ active: window.id === activeWindow }"
-                    @click="emit('select-window', window.id)">
+                    @click="selectWindow(window.id)">
                     <img :src="getIcon(window.title)" :alt="window.title" class="button-icon">
                     {{ window.title }}
                 </button>
