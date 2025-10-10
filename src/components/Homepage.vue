@@ -59,11 +59,19 @@
 
     .chip {
         font-size: 11px;
-        padding: 2px 6px;
+        padding: 3px 8px;
         border: 1px solid #888;
         background-color: #fff;
         box-shadow: inset -1px -1px #000, inset 1px 1px #d1d1d1;
     }
+
+    /* Rainbow chips */
+    .chips .chip:nth-child(1) { background-color: #e74c3c; color: #fff; }
+    .chips .chip:nth-child(2) { background-color: #f39c12; color: #000; }
+    .chips .chip:nth-child(3) { background-color: #f1c40f; color: #000; }
+    .chips .chip:nth-child(4) { background-color: #27ae60; color: #fff; }
+    .chips .chip:nth-child(5) { background-color: #2980b9; color: #fff; }
+    .chips .chip:nth-child(6) { background-color: #8e44ad; color: #fff; }
 
     .actions {
         padding: 0 10px 0 10px;
