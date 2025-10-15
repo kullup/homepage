@@ -11,10 +11,11 @@
             <span class="chip">PHP + Laravel</span>
             <span class="chip">Statamic</span>
             <span class="chip">Matomo</span>
+            <span class="chip">Playwright</span>
             <span class="chip">Stripe</span>
             <span class="chip">Vue.js</span>
             <span class="chip">C# + Unity3D</span>
-            <span class="chip">WordPress</span> 
+            <span class="chip chip--wordpress">WordPress</span> 
         </div>
 
         <img src="../assets/php.png" alt="PHP" class="img php">
@@ -64,6 +65,12 @@
         border: 1px solid #888;
         background-color: #fff;
         box-shadow: inset -1px -1px #000, inset 1px 1px #d1d1d1;
+    }
+
+    .chip--wordpress {
+        display: inline-block;
+        transform-origin: left bottom;
+        transform: rotate(6deg);
     }
 
     /* Rainbow chips */
