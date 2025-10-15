@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 
 const props = defineProps({
   initialX: { type: Number, default: 0 },
@@ -9,7 +9,9 @@ const props = defineProps({
   zIndex: { type: Number, default: 1 },
   title: { type: String, default: 'A Window' },
   isMinimized: { type: Boolean, default: false },
-  initialMaximized: { type: Boolean, default: false }
+  initialMaximized: { type: Boolean, default: false },
+  disableMaximize: { type: Boolean, default: false },
+  forceMaximized: { type: Boolean, default: false }
 })
 
 const emit = defineEmits(['focus', 'minimize', 'close'])
@@ -22,12 +24,13 @@ const resizeStart = ref({ x: 0, y: 0, width: 0, height: 0 })
 const windowPosition = ref({ x: props.initialX, y: props.initialY })
 const windowSize = ref({ width: props.initialWidth, height: props.initialHeight })
 const isMaximized = ref(props.initialMaximized)
+const isActuallyMaximized = computed(() => isMaximized.value || props.forceMaximized)
 const originalPosition = ref({ x: props.initialX, y: props.initialY })
 const originalSize = ref({ width: props.initialWidth, height: props.initialHeight })
 let animationFrameId = null
 
 const startDrag = (event) => {
-  if (isMaximized.value) return
+  if (isActuallyMaximized.value) return
 
   emit('focus')
 
@@ -80,7 +83,7 @@ const stopDrag = () => {
 }
 
 const startResize = (event) => {
-  if (isMaximized.value) return
+  if (isActuallyMaximized.value) return
 
   emit('focus')
   isResizing.value = true
@@ -140,6 +143,7 @@ const stopResize = () => {
 }
 
 const toggleMaximize = () => {
+  if (props.disableMaximize || props.forceMaximized) return
   if (isMaximized.value) {
     isMaximized.value = false
     windowPosition.value = { ...originalPosition.value }
@@ -173,24 +177,24 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div v-if="!isMinimized" ref="windowRef" class="window" :class="{ maximized: isMaximized }" :style="{
+  <div v-if="!isMinimized" ref="windowRef" class="window" :class="{ maximized: isActuallyMaximized }" :style="{
     transform: `translate3d(${windowPosition.x}px, ${windowPosition.y}px, 0)`,
     zIndex: props.zIndex,
-    width: isMaximized ? '100%' : windowSize.width + 'px',
-    height: isMaximized ? '100%' : windowSize.height + 'px'
+    width: isActuallyMaximized ? '100%' : windowSize.width + 'px',
+    height: isActuallyMaximized ? '100%' : windowSize.height + 'px'
   }" @mousedown.left="$emit('focus')">
     <div class="title-bar" @mousedown.left.stop="startDrag">
       <div class="title-bar-text">{{ title }}</div>
       <div class="title-bar-controls">
         <button aria-label="Minimize" @click="minimize"></button>
-        <button aria-label="Maximize" @click="toggleMaximize"></button>
+        <button v-if="!disableMaximize" aria-label="Maximize" @click="toggleMaximize"></button>
         <button aria-label="Close" @click="$emit('close')"></button>
       </div>
     </div>
 
     <slot></slot>
 
-    <div v-if="!isMaximized" class="resize-handle br" @mousedown.left.stop="startResize"></div>
+    <div v-if="!isActuallyMaximized" class="resize-handle br" @mousedown.left.stop="startResize"></div>
   </div>
 </template>
 
