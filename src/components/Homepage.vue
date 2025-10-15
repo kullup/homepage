@@ -4,16 +4,17 @@
 
         <p class="tagline">
             Hi, I'm Jon, a PHP developer specializing in Laravel and Statamic, with other experience ranging 
-            from VR development with Unity and C# to WordPress customizations. I solve problems with code and sometimes create new ones.
+            from VR development with Unity and C# to WordPress customizations. 
         </p>
 
         <div class="chips">
-            <span class="chip">PHP</span>
-            <span class="chip">Laravel</span>
+            <span class="chip">PHP + Laravel</span>
             <span class="chip">Statamic</span>
-            <span class="chip">Unity3D</span>
-            <span class="chip">VR</span>
+            <span class="chip">Matomo</span>
+            <span class="chip">Stripe</span>
             <span class="chip">Vue.js</span>
+            <span class="chip">C# + Unity3D</span>
+            <span class="chip">WordPress</span> 
         </div>
 
         <img src="../assets/php.png" alt="PHP" class="img php">
@@ -70,8 +71,9 @@
     .chips .chip:nth-child(2) { background-color: #f39c12; color: #000; }
     .chips .chip:nth-child(3) { background-color: #f1c40f; color: #000; }
     .chips .chip:nth-child(4) { background-color: #27ae60; color: #fff; }
-    .chips .chip:nth-child(5) { background-color: #2980b9; color: #fff; }
-    .chips .chip:nth-child(6) { background-color: #8e44ad; color: #fff; }
+    .chips .chip:nth-child(5) { background-color: #29b997; color: #fff; }
+    .chips .chip:nth-child(6) { background-color: #4744ad; color: #fff; }
+    .chips .chip:nth-child(7) { background-color: #9e34db; color: #fff; }
 
     .actions {
         padding: 0 10px 0 10px;

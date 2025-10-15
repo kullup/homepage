@@ -34,6 +34,10 @@ const toggleMinimize = (id) => {
     }
   }
 };
+
+const closeWindow = (id) => {
+  toggleMinimize(id);
+};
 </script>
 
 <template>
@@ -46,10 +50,13 @@ const toggleMinimize = (id) => {
           :title="window.title"
           :initial-x="window.initialX"
           :initial-y="window.initialY"
+          :initial-width="400"
+          :initial-height="300"
           :z-index="window.zIndex"
           :is-minimized="window.isMinimized"
           @focus="bringToFront(window.id)"
           @minimize="toggleMinimize(window.id)"
+          @close="closeWindow(window.id)"
         >
           <Browser v-if="window.id === 'browser'">
             <Homepage />
