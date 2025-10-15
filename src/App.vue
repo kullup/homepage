@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 import Window from './components/Window.vue';
 import TaskBar from './components/TaskBar.vue';
 import Desktop from './components/Desktop.vue';
@@ -57,6 +57,10 @@ const windows = ref([
   { id: 'browser', title: 'Browser', zIndex: 2, initialX: initialBrowserPosition.x, initialY: initialBrowserPosition.y, isMinimized: false },
   { id: 'contact', title: 'Contact', zIndex: 1, initialX: 50, initialY: 50, isMinimized: false }
 ]);
+
+// Easy accessors for window configs used in the template
+const browserWindow = computed(() => windows.value.find(w => w.id === 'browser'));
+const contactWindow = computed(() => windows.value.find(w => w.id === 'contact'));
 
 const evaluateViewport = () => {
   if (typeof window !== 'undefined' && typeof window.matchMedia === 'function') {
@@ -127,17 +131,16 @@ const closeWindow = (id) => {
       <Desktop>
         <!-- Browser Window -->
         <Window
-          v-if="!windows.find(w => w.id === 'browser')?.isMinimized"
-          :title="windows.find(w => w.id === 'browser')?.title"
-          :initial-x="windows.find(w => w.id === 'browser')?.initialX"
-          :initial-y="windows.find(w => w.id === 'browser')?.initialY"
+          :title="browserWindow.title"
+          :initial-x="browserWindow.initialX"
+          :initial-y="browserWindow.initialY"
           :initial-width="WINDOW_WIDTH"
           :initial-height="WINDOW_HEIGHT"
-          :z-index="windows.find(w => w.id === 'browser')?.zIndex"
+          :z-index="browserWindow.zIndex"
           :initial-maximized="isMobile"
           :disable-maximize="isMobile"
           :force-maximized="isMobile"
-          :is-minimized="windows.find(w => w.id === 'browser')?.isMinimized"
+          :is-minimized="browserWindow.isMinimized"
           @focus="bringToFront('browser')"
           @minimize="toggleMinimize('browser')"
           @close="closeWindow('browser')"
@@ -149,17 +152,16 @@ const closeWindow = (id) => {
 
         <!-- Contact Window -->
         <Window
-          v-if="!windows.find(w => w.id === 'contact')?.isMinimized"
-          :title="windows.find(w => w.id === 'contact')?.title"
-          :initial-x="windows.find(w => w.id === 'contact')?.initialX"
-          :initial-y="windows.find(w => w.id === 'contact')?.initialY"
+          :title="contactWindow.title"
+          :initial-x="contactWindow.initialX"
+          :initial-y="contactWindow.initialY"
           :initial-width="WINDOW_WIDTH"
           :initial-height="WINDOW_HEIGHT"
-          :z-index="windows.find(w => w.id === 'contact')?.zIndex"
+          :z-index="contactWindow.zIndex"
           :initial-maximized="isMobile"
           :disable-maximize="isMobile"
           :force-maximized="isMobile"
-          :is-minimized="windows.find(w => w.id === 'contact')?.isMinimized"
+          :is-minimized="contactWindow.isMinimized"
           @focus="bringToFront('contact')"
           @minimize="toggleMinimize('contact')"
           @close="closeWindow('contact')"
