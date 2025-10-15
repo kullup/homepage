@@ -8,7 +8,8 @@ const props = defineProps({
   initialHeight: { type: Number, default: 480 },
   zIndex: { type: Number, default: 1 },
   title: { type: String, default: 'A Window' },
-  isMinimized: { type: Boolean, default: false }
+  isMinimized: { type: Boolean, default: false },
+  initialMaximized: { type: Boolean, default: false }
 })
 
 const emit = defineEmits(['focus', 'minimize', 'close'])
@@ -20,7 +21,7 @@ const dragStart = ref({ x: 0, y: 0 })
 const resizeStart = ref({ x: 0, y: 0, width: 0, height: 0 })
 const windowPosition = ref({ x: props.initialX, y: props.initialY })
 const windowSize = ref({ width: props.initialWidth, height: props.initialHeight })
-const isMaximized = ref(true) // Start maximized
+const isMaximized = ref(props.initialMaximized)
 const originalPosition = ref({ x: props.initialX, y: props.initialY })
 const originalSize = ref({ width: props.initialWidth, height: props.initialHeight })
 let animationFrameId = null

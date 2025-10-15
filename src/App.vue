@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import Window from './components/Window.vue';
 import TaskBar from './components/TaskBar.vue';
 import Desktop from './components/Desktop.vue';
@@ -13,6 +13,48 @@ const windows = ref([
 ]);
 
 const activeWindow = ref('browser');
+
+// Track whether viewport is mobile (≤768px) — set synchronously for initial render
+const isMobile = ref(
+  typeof window !== 'undefined' && typeof window.matchMedia === 'function'
+    ? window.matchMedia('(max-width: 768px)').matches
+    : false
+);
+
+const evaluateViewport = () => {
+  if (typeof window !== 'undefined' && typeof window.matchMedia === 'function') {
+    isMobile.value = window.matchMedia('(max-width: 768px)').matches;
+  } else {
+    isMobile.value = false;
+  }
+};
+
+onMounted(() => {
+  evaluateViewport();
+
+  // Initialize window states for mobile once on load
+  if (isMobile.value) {
+    windows.value.forEach(w => {
+      w.isMinimized = w.id !== 'browser';
+    });
+    activeWindow.value = 'browser';
+  }
+
+  // Optional: keep `isMobile` reactive on viewport changes
+  let mql = null;
+  if (typeof window !== 'undefined' && typeof window.matchMedia === 'function') {
+    mql = window.matchMedia('(max-width: 768px)');
+    const handler = (e) => { isMobile.value = e.matches; };
+    // Newer browsers: addEventListener; fallback to addListener
+    if (typeof mql.addEventListener === 'function') {
+      mql.addEventListener('change', handler);
+      onUnmounted(() => mql.removeEventListener('change', handler));
+    } else if (typeof mql.addListener === 'function') {
+      mql.addListener(handler);
+      onUnmounted(() => mql.removeListener(handler));
+    }
+  }
+});
 
 const bringToFront = (id) => {
   activeWindow.value = id;
@@ -53,6 +95,7 @@ const closeWindow = (id) => {
           :initial-width="400"
           :initial-height="300"
           :z-index="window.zIndex"
+          :initial-maximized="isMobile && window.id === 'browser'"
           :is-minimized="window.isMinimized"
           @focus="bringToFront(window.id)"
           @minimize="toggleMinimize(window.id)"
