@@ -7,11 +7,6 @@ import Browser from './components/Browser.vue';
 import Homepage from './components/Homepage.vue';
 import Monitor from './components/Monitor.vue';
 
-const windows = ref([
-  { id: 'browser', title: 'Browser', zIndex: 2, initialX: 0, initialY: 0, isMinimized: false },
-  { id: 'contact', title: 'Contact', zIndex: 1, initialX: 50, initialY: 50, isMinimized: false }
-]);
-
 const activeWindow = ref('browser');
 
 // Track whether viewport is mobile (≤768px) — set synchronously for initial render
@@ -20,6 +15,47 @@ const isMobile = ref(
     ? window.matchMedia('(max-width: 768px)').matches
     : false
 );
+
+// Keep these in sync with the props passed to <Window>
+const WINDOW_WIDTH = 400;
+const WINDOW_HEIGHT = 350;
+
+// Pre-center the browser window on desktop before first render
+const monitorScaleFactor = 1.5; // must match Monitor.vue CSS scale and Window drag zoomFactor
+const centerBrowserPosition = () => {
+  if (typeof window === 'undefined') return { x: 0, y: 0 };
+
+  // Convert viewport to pre-scale space used by Window positioning
+  const preScaleViewportWidth = window.innerWidth / monitorScaleFactor;
+  const preScaleViewportHeight = window.innerHeight / monitorScaleFactor;
+
+  // Account for monitor and screen borders and the monitor controls area
+  // Monitor borders (px): left+right are 40px on wide screens, 8px on <=1024px
+  const narrow = typeof window.matchMedia === 'function' && window.matchMedia('(max-width: 1024px)').matches;
+  const monitorHorizontalBorder = narrow ? (8 + 8) : (40 + 40);
+  const monitorVerticalBorder = 8 + 0; // top + bottom
+
+  // Screen border wrappers
+  const screenOuterBorderH = 8 + 8; // .screen-outer-border left+right
+  const screenOuterBorderV = 8 + 8; // top+bottom
+  const screenInnerBorderH = 3.2 + 3.2; // 0.2em each side (assuming 16px base)
+  const screenInnerBorderV = 3.2 + 3.2;
+  const monitorControlsHeight = 28; // height of controls below the screen
+
+  const screenContentWidth = preScaleViewportWidth - monitorHorizontalBorder - screenOuterBorderH - screenInnerBorderH;
+  const screenContentHeight = preScaleViewportHeight - monitorVerticalBorder - screenOuterBorderV - screenInnerBorderV - monitorControlsHeight;
+
+  const x = Math.max(0, Math.floor((screenContentWidth - WINDOW_WIDTH) / 2));
+  const y = Math.max(0, Math.floor((screenContentHeight - WINDOW_HEIGHT) / 2)) - 16;
+  return { x, y };
+};
+
+const initialBrowserPosition = isMobile.value ? { x: 0, y: 0 } : centerBrowserPosition();
+
+const windows = ref([
+  { id: 'browser', title: 'Browser', zIndex: 2, initialX: initialBrowserPosition.x, initialY: initialBrowserPosition.y, isMinimized: false },
+  { id: 'contact', title: 'Contact', zIndex: 1, initialX: 50, initialY: 50, isMinimized: false }
+]);
 
 const evaluateViewport = () => {
   if (typeof window !== 'undefined' && typeof window.matchMedia === 'function') {
@@ -33,7 +69,9 @@ onMounted(() => {
   evaluateViewport();
 
   // Initialize window states for mobile once on load
-  if (isMobile.value) {
+  // disable that feature for now, looks nicer this way
+  // if (isMobile.value) {
+  if (true) {
     windows.value.forEach(w => {
       w.isMinimized = w.id !== 'browser';
     });
@@ -92,8 +130,8 @@ const closeWindow = (id) => {
           :title="window.title"
           :initial-x="window.initialX"
           :initial-y="window.initialY"
-          :initial-width="400"
-          :initial-height="300"
+          :initial-width="WINDOW_WIDTH"
+          :initial-height="WINDOW_HEIGHT"
           :z-index="window.zIndex"
           :initial-maximized="isMobile && window.id === 'browser'"
           :is-minimized="window.isMinimized"

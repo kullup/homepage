@@ -11,6 +11,7 @@
             <span class="chip">PHP + Laravel</span>
             <span class="chip">Statamic</span>
             <span class="chip">Matomo</span>
+            <span class="chip">Docker</span>
             <span class="chip">Playwright</span>
             <span class="chip">Stripe</span>
             <span class="chip">Vue.js</span>
@@ -74,13 +75,15 @@
     }
 
     /* Rainbow chips */
-    .chips .chip:nth-child(1) { background-color: #e74c3c; color: #fff; }
-    .chips .chip:nth-child(2) { background-color: #f39c12; color: #000; }
-    .chips .chip:nth-child(3) { background-color: #f1c40f; color: #000; }
-    .chips .chip:nth-child(4) { background-color: #27ae60; color: #fff; }
-    .chips .chip:nth-child(5) { background-color: #29b997; color: #fff; }
-    .chips .chip:nth-child(6) { background-color: #4744ad; color: #fff; }
-    .chips .chip:nth-child(7) { background-color: #9e34db; color: #fff; }
+    .chips .chip:nth-child(1) { background-color: #e74c3c; color: #fff; } /* red */
+    .chips .chip:nth-child(2) { background-color: #f39c12; color: #000; } /* orange */
+    .chips .chip:nth-child(3) { background-color: #f1c40f; color: #000; } /* yellow */
+    .chips .chip:nth-child(4) { background-color: #27ae60; color: #fff; } /* green */
+    .chips .chip:nth-child(5) { background-color: #1abc9c; color: #000; } /* cyan */
+    .chips .chip:nth-child(6) { background-color: #3498db; color: #fff; } /* blue */
+    .chips .chip:nth-child(7) { background-color: #4744ad; color: #fff; } /* indigo */
+    .chips .chip:nth-child(8) { background-color: #9b59b6; color: #fff; } /* violet */
+    .chips .chip:nth-child(9) { background-color: #000000; color: #fff; } /* magenta */
 
     .actions {
         padding: 0 10px 0 10px;
