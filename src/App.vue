@@ -5,6 +5,7 @@ import TaskBar from './components/TaskBar.vue';
 import Desktop from './components/Desktop.vue';
 import Browser from './components/Browser.vue';
 import Homepage from './components/Homepage.vue';
+import Contact from './components/Contact.vue';
 import Monitor from './components/Monitor.vue';
 
 const activeWindow = ref('browser');
@@ -124,33 +125,49 @@ const closeWindow = (id) => {
   <main>
     <Monitor>
       <Desktop>
+        <!-- Browser Window -->
         <Window
-          v-for="window in windows.filter(w => !w.isMinimized)"
-          :key="window.id"
-          :title="window.title"
-          :initial-x="window.initialX"
-          :initial-y="window.initialY"
+          v-if="!windows.find(w => w.id === 'browser')?.isMinimized"
+          :title="windows.find(w => w.id === 'browser')?.title"
+          :initial-x="windows.find(w => w.id === 'browser')?.initialX"
+          :initial-y="windows.find(w => w.id === 'browser')?.initialY"
           :initial-width="WINDOW_WIDTH"
           :initial-height="WINDOW_HEIGHT"
-          :z-index="window.zIndex"
+          :z-index="windows.find(w => w.id === 'browser')?.zIndex"
           :initial-maximized="isMobile"
           :disable-maximize="isMobile"
           :force-maximized="isMobile"
-          :is-minimized="window.isMinimized"
-          @focus="bringToFront(window.id)"
-          @minimize="toggleMinimize(window.id)"
-          @close="closeWindow(window.id)"
+          :is-minimized="windows.find(w => w.id === 'browser')?.isMinimized"
+          @focus="bringToFront('browser')"
+          @minimize="toggleMinimize('browser')"
+          @close="closeWindow('browser')"
         >
-          <Browser v-if="window.id === 'browser'">
+          <Browser>
             <Homepage />
           </Browser>
-          <div v-if="window.id === 'contact'" class="field-row-stacked" style="width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-            <a href="mailto:hi@jon3000.cool">Email: hi@jon3000.cool</a>
-            <a href="https://github.com/kullup">GitHub: kullup</a>
-            <a href="https://www.linkedin.com/in/jon-schulte-04219825a/">LinkedIn</a>
-          </div>
+        </Window>
+
+        <!-- Contact Window -->
+        <Window
+          v-if="!windows.find(w => w.id === 'contact')?.isMinimized"
+          :title="windows.find(w => w.id === 'contact')?.title"
+          :initial-x="windows.find(w => w.id === 'contact')?.initialX"
+          :initial-y="windows.find(w => w.id === 'contact')?.initialY"
+          :initial-width="WINDOW_WIDTH"
+          :initial-height="WINDOW_HEIGHT"
+          :z-index="windows.find(w => w.id === 'contact')?.zIndex"
+          :initial-maximized="isMobile"
+          :disable-maximize="isMobile"
+          :force-maximized="isMobile"
+          :is-minimized="windows.find(w => w.id === 'contact')?.isMinimized"
+          @focus="bringToFront('contact')"
+          @minimize="toggleMinimize('contact')"
+          @close="closeWindow('contact')"
+        >
+          <Contact />
         </Window>
       </Desktop>
+
       <TaskBar :windows="windows" :active-window="activeWindow" @select-window="bringToFront" />
     </Monitor>
   </main>
