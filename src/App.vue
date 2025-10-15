@@ -144,11 +144,10 @@ const closeWindow = (id) => {
           <Browser v-if="window.id === 'browser'">
             <Homepage />
           </Browser>
-          <div v-if="window.id === 'contact'" class="field-row-stacked" style="width: 200px">
-            <label for="text18">Address (Line 1)</label>
-            <input id="text18" type="text" />
-            <label for="text19">Address (Line 2)</label>
-            <input id="text19" type="text" />
+          <div v-if="window.id === 'contact'" class="field-row-stacked" style="width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <a href="mailto:hi@jon3000.cool">Email: hi@jon3000.cool</a>
+            <a href="https://github.com/kullup">GitHub: kullup</a>
+            <a href="https://www.linkedin.com/in/jon-schulte-04219825a/">LinkedIn</a>
           </div>
         </Window>
       </Desktop>
