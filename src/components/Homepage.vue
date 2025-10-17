@@ -1,25 +1,37 @@
 <template>
     <div class="homepage">
-        <img src="../assets/wordart.png" alt="Word Art" class="img banner">
+        <div class="outer-box">        
+            <div class="box">
+                <img src="../assets/wordart.png" alt="Word Art" class="img banner">
+            </div>
 
-        <p class="tagline">
-            Hi, I'm Jon, a PHP developer specializing in Laravel and Statamic, with other experience ranging 
-            from VR development with Unity and C# to WordPress customizations. 
-        </p>
+            <div class="box">
+                <p class="tagline">
+                    Hi, I'm Jon, a PHP developer specializing in Laravel and Statamic, with other experience ranging 
+                    from VR development with Unity and C# to WordPress customizations. 
+                </p>
+            </div>
 
-        <div class="chips">
-            <span class="chip">PHP + Laravel</span>
-            <span class="chip">Statamic</span>
-            <span class="chip">Matomo</span>
-            <span class="chip">Docker</span>
-            <span class="chip">Playwright</span>
-            <span class="chip">Stripe</span>
-            <span class="chip">Vue.js</span>
-            <span class="chip">C# + Unity3D</span>
-            <span class="chip chip--wordpress">WordPress</span> 
+            <div class="row">
+                <div class="box">
+                    <img src="../assets/php.png" alt="PHP" class="img php">
+                </div>
+
+                <div class="box">
+                    <div class="chips">
+                        <span class="chip">PHP + Laravel</span>
+                        <span class="chip">Statamic</span>
+                        <span class="chip">Matomo</span>
+                        <span class="chip">Docker</span>
+                        <span class="chip">Playwright</span>
+                        <span class="chip">Stripe</span>
+                        <span class="chip">Vue.js</span>
+                        <span class="chip">C# + Unity3D</span>
+                        <span class="chip chip--wordpress">WordPress</span> 
+                    </div>            
+                </div>
+            </div>
         </div>
-
-        <img src="../assets/php.png" alt="PHP" class="img php">
 
         <p class="footer">
             This site is built with Vue.js and uses the fantastic <a href="https://github.com/jdan/98.css">98.css</a> library.
@@ -37,6 +49,21 @@
         justify-content: center;
     }
 
+    .box {
+        border: 1px solid #959595;
+        background-color: #fff;
+    }
+
+    .outer-box {
+        border: 1px solid #323232;
+        background-color: #fff;
+    }
+
+    .row {
+        display: flex;
+        flex-direction: row;
+    }
+
     p {
         padding: 0 10px 0 10px;
         font-size: 12px;
@@ -49,7 +76,7 @@
     }
 
     .tagline {
-        margin: 0px 0 8px 0;
+        margin: 8px 0 8px 0;
     }
 
     .chips {
@@ -129,6 +156,16 @@
         }
         to {
             transform: rotate(360deg);
+        }
+    }
+
+    @media (max-width: 600px) {
+        .row {
+            flex-direction: column;
+        }
+
+        .php {
+            width: 60px;
         }
     }
 </style>
