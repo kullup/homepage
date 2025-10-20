@@ -6,7 +6,7 @@
 
 <style >
   .desktop {
-    background-color: rgb(54, 123, 123);
+    background-color: rgb(60, 103, 103);
     height: 180%;
     width: 100%;
     max-height: 100%;
