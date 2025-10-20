@@ -55,7 +55,7 @@
 
     @media (max-width: 768px) {
         .heading {
-            font-size: 0.4rem;
+            font-size: 0.3rem;
         }
     }
 </style>
