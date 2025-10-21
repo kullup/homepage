@@ -1,7 +1,7 @@
 <template>
     <div class="field-row">
         <label for="text17">Address</label>
-        <input id="text17" type="text" value="https://jon3000.cool/hi" />
+        <input id="text17" type="text" value="https://jon-schulte.com/index.php" />
     </div>
     <div class="sunken-panel">
         <slot></slot>
