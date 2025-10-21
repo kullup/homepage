@@ -89,4 +89,17 @@ button {
     min-width: 0px;
     padding-inline-start: 4px;
 }
+
+@media (max-width: 500px) {
+    .button-icon {
+        width: 10px;
+        height: 10px;
+        margin-right: 4px;
+    }
+
+    button {
+        padding-inline-start: 4px;
+        padding: 4px;
+    }
+}
 </style>

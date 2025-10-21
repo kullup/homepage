@@ -12,7 +12,7 @@
     .sunken-panel {
         margin: 2px 0 0 0;
         height: 100%;
-        background-color: rgb(219, 240, 239);
+        background-color: rgb(0, 0, 0);
     }
 
     .field-row {
