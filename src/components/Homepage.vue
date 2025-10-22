@@ -9,7 +9,7 @@
 ██║  ██║███████╗███████╗███████╗╚██████╔╝██╗
 ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝ ╚═════╝ ╚═╝</pre>
             <p class="ibm-plex-mono-medium">
-                I’m Jon, a software software developer specializing in <span>PHP</span> and <span>Laravel</span>.
+                I’m Jon, a software developer specializing in <span>PHP</span> and <span>Laravel</span>.
             </p>
             <div class="divider-container">
                 <div class="divider"></div>
