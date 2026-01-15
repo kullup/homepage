@@ -8,15 +8,11 @@
 ██╔══██║██╔══╝  ██║     ██║     ██║   ██║╚═╝
 ██║  ██║███████╗███████╗███████╗╚██████╔╝██╗
 ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝ ╚═════╝ ╚═╝</pre>
-            <p class="ibm-plex-mono-medium">
-                I’m Jon, a software developer specializing in <span>PHP</span> and <span>Laravel</span>.
-            </p>
             <div class="divider-container">
                 <div class="divider"></div>
             </div>
             <p class="ibm-plex-mono-medium">
-                I have experience in automated testing using <span>Playwright</span> and developing privacy-focused analytics solutions with <span>Matomo</span>. <br>
-                During my studies, I explored virtual reality development with <span>Unity3D</span>.
+                I’m Jon, I develop Software based on <span>PHP</span> and <span>Laravel</span>.
             </p>
         </div>
     </div>
